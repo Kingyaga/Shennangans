@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will you be my Valentine, Ese? 💖</title>
+    <meta name="description" content="A sweet Valentine's Day surprise for Ese">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fadadd;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            padding: 1rem;
+        }
+
+        /* Subtle floating hearts background */
+        .heart-bg {
+            position: fixed;
+            font-size: 2.5rem;
+            opacity: 0.08;
+            animation: float 20s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(5deg);
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 440px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 8px 32px rgba(236, 72, 153, 0.15);
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Profile circle */
+        .profile-circle {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            margin: 0 auto 1rem;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-circle img {
+            width: 85%;
+            height: 85%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-circle img.dancing {
+            animation: wiggle 0.5s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+
+            0%,
+            100% {
+                transform: rotate(-5deg) scale(1.05);
+            }
+
+            50% {
+                transform: rotate(5deg) scale(1.1);
+            }
+        }
+
+        .badge {
+            background: #ec4899;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.4rem 0.85rem;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.85rem;
+            color: #ec4899;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        .subtext {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        /* ESE acrostic display */
+        .ese-acrostic {
+            font-size: 0.9rem;
+            color: #ec4899;
+            font-weight: 500;
+            margin-bottom: 1.75rem;
+            line-height: 1.6;
+            font-style: italic;
+            letter-spacing: 0.3px;
+        }
+
+        /* Witty message that appears when No is evaded */
+        .witty-message {
+            font-size: 0.85rem;
+            color: #ec4899;
+            font-weight: 500;
+            margin-top: 1rem;
+            min-height: 24px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            line-height: 1.4;
+        }
+
+        .witty-message.show {
+            opacity: 1;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            align-items: center;
+            min-height: 100px;
+            position: relative;
+            margin-bottom: 0.5rem;
+            width: 100%;
+        }
+
+        button {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.9rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 200px;
+        }
+
+        #yesBtn {
+            background: #ec4899;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        #yesBtn:hover {
+            background: #db2777;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
+        }
+
+        #yesBtn:active {
+            transform: translateY(0);
+        }
+
+        #noBtn {
+            background: white;
+            color: #ec4899;
+            border: 2px solid #ec4899;
+            position: relative;
+            transition: all 0.12s ease-out;
+            z-index: 1;
+        }
+
+        #noBtn.moving {
+            position: fixed;
+        }
+
+        #noBtn:hover {
+            background: #fdf2f8;
+            border-color: #db2777;
+            color: #db2777;
+        }
+
+        .disclaimer {
+            font-size: 0.72rem;
+            color: #cbd5e1;
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
+        .message {
+            display: none;
+        }
+
+        .message.show {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-message {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.6rem;
+            color: #ec4899;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .success-subtext {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .ese-reveal {
+            font-size: 0.95rem;
+            color: #ec4899;
+            font-weight: 600;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #fce7f3;
+            border-radius: 12px;
+            line-height: 1.6;
+        }
+
+        .celebration {
+            font-size: 2rem;
+            animation: bounce 0.6s infinite alternate;
+            margin-top: 0.5rem;
+        }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ec4899;
+            animation: confetti-fall 3s linear forwards;
+            z-index: 9999;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Heart fall animation */
+        .heart {
+            position: fixed;
+            font-size: 1.5rem;
+            animation: heart-fall 3s linear forwards;
+            opacity: 0.9;
+            z-index: 9999;
+        }
+
+        @keyframes heart-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive design - Desktop */
+        @media (min-width: 768px) {
+            .card {
+                padding: 2.5rem 2rem;
+                border-radius: 24px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .profile-circle {
+                width: 180px;
+                height: 180px;
+            }
+
+            .button-container {
+                flex-direction: row;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            button {
+                width: auto;
+                min-width: 120px;
+            }
+        }
+
+        /* Mobile optimization */
+        @media (max-width: 380px) {
+            .card {
+                padding: 1.75rem 1.25rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .profile-circle {
+                width: 140px;
+                height: 140px;
+            }
+
+            button {
+                font-size: 0.95rem;
+                padding: 0.8rem 2rem;
+            }
+
+            .subtext,
+            .success-subtext {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Subtle background hearts -->
+    <div class="heart-bg" style="top: 5%; left: 5%;">💕</div>
+    <div class="heart-bg" style="top: 12%; right: 8%; animation-delay: 3s;">💖</div>
+    <div class="heart-bg" style="bottom: 8%; left: 10%; animation-delay: 6s;">💗</div>
+    <div class="heart-bg" style="bottom: 15%; right: 5%; animation-delay: 9s;">💝</div>
+
+    <div class="container">
+        <div class="card">
+            <!-- Profile Image (Cat) -->
+            <div class="profile-circle">
+                <img id="catImage"
+                    src="C:/Users/Marcellus Obiajulu/.gemini/antigravity/brain/37dfe5f8-c630-4ee3-93e7-085fb3cd3a2a/cute_cat_asking_1770465334489.png"
+                    alt="Cute asking cat">
+            </div>
+
+            <!-- Badge -->
+            <div class="badge">
+                For you, my woman
+            </div>
+
+            <!-- Main content -->
+            <div id="mainContent">
+                <h1>Will you be my Valentine?</h1>
+
+                <!-- ESE Acrostic -->
+                <div class="ese-acrostic" id="eseText">Every Second, Ese</div>
+
+                <p class="subtext">I promise endless snacks, love, and the best moments together.</p>
+
+                <div class="button-container" id="buttonContainer">
+                    <button id="yesBtn">Yes</button>
+                    <button id="noBtn">No</button>
+                </div>
+
+                <!-- Witty message area -->
+                <div class="witty-message" id="wittyMessage"></div>
+
+                <p class="disclaimer">*love and snacks guaranteed</p>
+            </div>
+
+            <!-- Success message -->
+            <div class="message" id="successMessage">
+                <p class="success-message">I knew you'd say yes!😌</p>
+                <p class="success-subtext">I love you very much, Mama.</p>
+                <div class="celebration">💕 ✨ 💖</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const buttonContainer = document.getElementById('buttonContainer');
+        const successMessage = document.getElementById('successMessage');
+        const mainContent = document.getElementById('mainContent');
+        const wittyMessage = document.getElementById('wittyMessage');
+        const catImage = document.getElementById('catImage');
+        const eseText = document.getElementById('eseText');
+
+        // ESE Acrostic variations
+        const eseMessages = [
+            "Every Second, Ese",
+            "Ever So Enchanting",
+            "Exceptionally Stunning Ese",
+            "Eternally Special Ese"
+        ];
+        let eseIndex = 0;
+
+        // Rotate ESE messages (slower for better readability)
+        setInterval(() => {
+            eseIndex = (eseIndex + 1) % eseMessages.length;
+            eseText.style.opacity = '0';
+            setTimeout(() => {
+                eseText.textContent = eseMessages[eseIndex];
+                eseText.style.opacity = '1';
+            }, 400);
+        }, 6000);
+
+        eseText.style.transition = 'opacity 0.3s ease';
+
+        // Array of witty messages (expanded)
+        const wittyMessages = [
+            "You sure about that, Ese? 🤔",
+            "Really though? 😏",
+            "The snacks are really good... ",
+            "Come on, give me a chance! 🥺",
+            "I'll let you pick the movie",
+            "Think of the snacks!",
+            "Esechukwu, you're making this harder than it needs to be 😅",
+            "I promise it's going to be fun! ✨",
+            "Just click Yes already 😌",
+            "The cat is begging you! 🐱",
+            "I already got you a gift",
+            "Pretty please? 🙏",
+            "You know you want to say yes 😌",
+            "Oya, chocolates instead",
+            "Esechukwu, don't make me cry 😢",
+            "But...but...we're perfect together! 💕",
+            "The cat will be sad if you say no 😿",
+            "One chance is all I need! 💖",
+            "Okay fine, unlimited chocolates! 🍪",
+            "You can't resist forever 😌",
+            "You're stuck with me!"
+        ];
+
+        let attemptCount = 0;
+
+        // Move the "No" button to a random position
+        function moveNoButton() {
+            const button = noBtn.getBoundingClientRect();
+            const card = document.querySelector('.card').getBoundingClientRect();
+
+            // Get viewport dimensions
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            // Calculate available space with padding and bottom constraint
+            const padding = 40;
+            const bottomReserve = 120; // Reserve space for disclaimer text
+            const maxX = viewportWidth - button.width - padding;
+            const maxY = viewportHeight - button.height - padding - bottomReserve;
+
+            // Generate random position
+            const randomX = Math.random() * (maxX - padding) + padding;
+            const randomY = Math.random() * (maxY - padding) + padding;
+
+            // Apply new position
+            noBtn.classList.add('moving');
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+
+            // Show witty message
+            showWittyMessage();
+        }
+
+        function showWittyMessage() {
+            attemptCount++;
+            const messageIndex = (attemptCount - 1) % wittyMessages.length;
+            wittyMessage.textContent = wittyMessages[messageIndex];
+            wittyMessage.classList.add('show');
+        }
+
+        // Handle "No" button hover and click
+        noBtn.addEventListener('mouseenter', moveNoButton);
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        // Handle touch events for mobile
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        // Handle "Yes" button click
+        yesBtn.addEventListener('click', () => {
+            // Hide main content and witty messages
+            mainContent.style.display = 'none';
+            wittyMessage.style.display = 'none';
+
+            // Change cat to dancing cat
+            catImage.src = 'C:/Users/Marcellus Obiajulu/.gemini/antigravity/brain/37dfe5f8-c630-4ee3-93e7-085fb3cd3a2a/cat_dancing_happy_1770465351125.png';
+            catImage.classList.add('dancing');
+
+            // Show success message
+            successMessage.classList.add('show');
+
+            // Create hearts and confetti
+            createCelebration();
+        });
+
+        function createCelebration() {
+            const colors = ['#ec4899', '#f472b6', '#fbbf24', '#fb7185', '#f43f5e'];
+            const hearts = ['💕', '💖', '💗', '💝', '💘', '💓', '✨', '🎉'];
+
+            // Create 50 confetti pieces
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 0.3 + 's';
+                    confetti.style.width = Math.random() * 10 + 5 + 'px';
+                    confetti.style.height = Math.random() * 10 + 5 + 'px';
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 20);
+            }
+
+            // Create 30 falling hearts/sparkles
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDelay = Math.random() * 0.3 + 's';
+                    heart.style.fontSize = Math.random() * 1.5 + 1 + 'rem';
+                    document.body.appendChild(heart);
+
+                    setTimeout(() => heart.remove(), 3000);
+                }, i * 30);
+            }
+        }
+    </script>
+</body>
+
+</html>
