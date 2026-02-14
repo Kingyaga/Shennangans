@@ -355,20 +355,92 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
             .container {
-                padding: 30px 20px;
+                padding: 20px 15px;
+                border-radius: 15px;
             }
 
             h1 {
                 font-size: 2.5em;
+                /* Reduced from 4em */
+                margin-bottom: 10px;
+            }
+
+            .subtitle {
+                font-size: 1.2em;
+            }
+
+            .header {
+                margin-bottom: 30px;
             }
 
             .section {
+                padding: 20px 15px;
+                margin: 20px 0;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+                /* Reduced from 2.5em */
+            }
+
+            #map {
+                height: 300px;
+                /* Smaller map on mobile */
+            }
+
+            .map-note {
+                font-size: 1.1em;
+                padding: 15px;
+            }
+
+            .music-player {
                 padding: 20px;
+                margin: 20px 0;
+            }
+
+            .now-playing {
+                font-size: 1.1em;
+            }
+
+            .play-button {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .playlist li {
+                padding: 12px 15px;
+                margin: 8px 0;
+            }
+
+            .playlist li::before {
+                font-size: 1.2em;
+                margin-right: 10px;
+            }
+
+            .song-title {
+                font-size: 1em;
+            }
+
+            .song-artist {
+                font-size: 0.85em;
             }
 
             .photo-album {
                 grid-template-columns: 1fr;
+                /* Stack images vertically */
+                gap: 20px;
+            }
+
+            .album-message {
+                font-size: 1.2em;
+                padding: 20px;
+                margin: 20px 0;
             }
         }
     </style>
@@ -461,19 +533,19 @@
             <h2 class="section-title">📸 Our Photo Album</h2>
             <div class="photo-album">
                 <div class="photo-item">
-                    <img src="flork_couple_1_1771063700853.png"
+                    <img src="C:/Users/Marcellus Obiajulu/.gemini/antigravity/brain/2a8fb6f1-6152-4ae9-aa97-2b9b0c8d9833/flork_couple_1_1771063700853.png"
                         alt="Us together">
                 </div>
                 <div class="photo-item">
-                    <img src="flork_couple_2_1771063715691.png"
+                    <img src="C:/Users/Marcellus Obiajulu/.gemini/antigravity/brain/2a8fb6f1-6152-4ae9-aa97-2b9b0c8d9833/flork_couple_2_1771063715691.png"
                         alt="You and me">
                 </div>
                 <div class="photo-item">
-                    <img src="flork_couple_3_1771063730313.png"
+                    <img src="C:/Users/Marcellus Obiajulu/.gemini/antigravity/brain/2a8fb6f1-6152-4ae9-aa97-2b9b0c8d9833/flork_couple_3_1771063730313.png"
                         alt="Sweet moments">
                 </div>
                 <div class="photo-item">
-                    <img src="flork_couple_4_1771063745610.png"
+                    <img src="C:/Users/Marcellus Obiajulu/.gemini/antigravity/brain/2a8fb6f1-6152-4ae9-aa97-2b9b0c8d9833/flork_couple_4_1771063745610.png"
                         alt="Dancing together">
                 </div>
             </div>
